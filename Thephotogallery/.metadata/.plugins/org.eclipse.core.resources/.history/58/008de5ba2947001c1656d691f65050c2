@@ -1,0 +1,54 @@
+package com.thephotogallery.admin.product;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
+
+import com.thephotogallery.common.entity.Brand;
+import com.thephotogallery.common.entity.Category;
+import com.thephotogallery.common.entity.Product;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+@Rollback(false)
+public class ProductRepositoryTests {
+	
+	@Autowired
+	private ProductRepository repo;
+	
+	@Autowired
+	private TestEntityManager entityManager;
+	
+	@Test
+	public void testCreateProduct() {
+		Brand brand = entityManager.find(Brand.class, 24);
+		Category category = entityManager.find(Category.class, 38);
+		
+		Product product = new Product();
+		product.setName("Lockheed Martin F-16C Fighting Falcon");
+		product.setAlias("lockheed_martin_f-16c_fighting_falcon");
+		product.setShortDescription("Samolot wielozadaniowy");
+		product.setFullDescription("F-16 Block 52+ – wersja nazywana także advanced 52, odpowiednik wersji 50+ z silnikami Pratt & Whitney F100-PW-229.");
+		
+		product.setBrand(brand);
+		product.setCategory(category);
+		product.setEnabled(true);
+		
+		product.setCreatedTime(new Date());
+		product.setUpdatedTime(new Date());
+		
+		Product savedProduct = repo.save(product);
+		
+		assertThat(savedProduct).isNotNull();
+		assertThat(savedProduct.getId()).isGreaterThan(0);
+		
+	}
+}

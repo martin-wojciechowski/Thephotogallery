@@ -1,0 +1,11 @@
+package com.thephotogallery.common.entity.exception;
+
+public class UserNotFoundException extends Exception {
+
+	public UserNotFoundException(String message) {
+		super(message);
+	
+	}
+
+	
+}

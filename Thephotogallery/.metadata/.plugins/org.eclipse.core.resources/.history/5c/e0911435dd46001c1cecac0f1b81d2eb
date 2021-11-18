@@ -1,0 +1,5 @@
+package com.thephotogallery.admin.brand;
+
+public class BrandService {
+
+}

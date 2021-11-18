@@ -1,0 +1,5 @@
+package com.thephotogallery.common.entity;
+
+public class ProductDetail {
+
+}

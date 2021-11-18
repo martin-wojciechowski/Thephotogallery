@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments :: page_head('Categories - The Photo Gallery Admin')" />
+	
+	
+<body>
+<div class="container-fluid">
+	<div th:replace="navigation :: menu"></div>
+
+
+	<div>
+		<h2>Manage Categories</h2>
+	<a th:href="@{/categories/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+	</div>
+	
+	
+	
+	<div th:if="${message !=null}" class="alert alert-success text-center">
+	[[${message}]]
+	</div>
+
+
+
+
+
+
+	
+	
+	<div th:replace="fragments :: footer"></div>
+	
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$(".link-delete").on("click", function(e) {
+			e.preventDeflaut();
+			link = $(this);
+		//	alert($(this).attr("href"));	
+		userId = link.attr("userId");
+		$("#yesButton").attr("href", link.attr("href"));
+		$("#confirmText").text("Are you surce you want to delete this user ID " + userId + "?");
+		$("#confirmModal").modal();
+		});	
+	});
+	
+	function clearFilter() {
+		window.location = "[[@{/users}]]";
+	}
+</script>
+
+
+</body>
+</html>

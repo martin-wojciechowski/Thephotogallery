@@ -1,0 +1,5 @@
+package com.thephotogallery.admin.user;
+
+public interface PagingAndSortingParam {
+
+}

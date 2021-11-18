@@ -1,0 +1,28 @@
+package com.thephotogallery.common.entity;
+
+
+import java.util.Date;
+
+
+public class Product {
+	private Integer id;
+	private String name;
+	private String alias;
+	private String shortDescription;
+	private String fullDescription;
+	
+	private Date createdTime;
+	private Date updatedTime;
+	
+	private boolean enabled;
+	
+	private String mainImage;
+		
+	private Category category;
+
+	private Brand brand;
+	
+	
+	
+}
+	

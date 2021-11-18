@@ -1,0 +1,53 @@
+package com.thephotogallery.admin.product;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.util.Date;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase.Replace;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.test.annotation.Rollback;
+
+import com.thephotogallery.common.entity.Brand;
+import com.thephotogallery.common.entity.Category;
+import com.thephotogallery.common.entity.Product;
+
+@DataJpaTest
+@AutoConfigureTestDatabase(replace = Replace.NONE)
+@Rollback(false)
+public class ProductRepositoryTests {
+	
+	@Autowired
+	private ProductRepository repo;
+	
+	@Autowired
+	private TestEntityManager entityManager;
+	
+	@Test
+	public void testCreateProduct() {
+		Brand brand = entityManager.find(Brand.class, 20);
+		Category category = entityManager.find(Category.class, 3);
+		
+		Product product = new Product();
+		product.setName("Boeing EA-18G Growler");
+		product.setAlias("boeing_f-18g_growler");
+		product.setShortDescription("Samolot walki elektronicznej");
+		product.setFullDescription("Samolot walki elektronicznej zbudowany na podstawie dwumiejscowego F/A-18F i oznaczony jako EA-18G Growler.");
+		
+		product.setBrand(brand);
+		product.setCategory(category);
+		
+		product.setCreatedTime(new Date());
+		product.setUpdatedTime(new Date());
+		
+		Product savedProduct = repo.save(product);
+		
+		assertThat(savedProduct).isNotNull();
+		assertThat(savedProduct.getId()).isGreaterThan(0);
+		
+	}
+}

@@ -1,0 +1,5 @@
+package com.thephotogallery.common.exception;
+
+public class CategoryNotFoundException {
+
+}
